@@ -10,7 +10,7 @@ This has been tweaked under Mac with Solarized dark and a good Unicode font (Fir
 
 # Compatibility
 
-__This comes straight from [agnoster](https://github.com/agnoster/agnoster-zsh-theme), since my theme uses the same formatting code_
+_This comes straight from [agnoster](https://github.com/agnoster/agnoster-zsh-theme), since my theme uses the same formatting code_
 
 In all likelihood, you will need to install a [Powerline-patched font](https://github.com/Lokaltog/powerline-fonts) for this theme to render correctly.
 
@@ -28,7 +28,7 @@ To test if your terminal and font support it, check that all the necessary chara
   - Dirty working directory (±, color change)
 - Error status (color change)
 
-![Screenshot](screenshot.png)
+![Screenshot](https://raw.githubusercontent.com/rberenguel/rb-zsh-theme/master/screenshot.jpg)
 
 
 ## Shortened branches
