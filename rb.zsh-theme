@@ -41,15 +41,19 @@ prompt_end() {
 prompt_context() {
     ref="$vcs_info_msg_0_"
     if [[ -n "$ref" ]]; then
-        project=$(basename `git rev-parse --show-toplevel`)
-        prompt_segment 98 260 " ${project} "
+        git_project=$(git rev-parse --show-toplevel)
+        if [[ -n "$git_project" ]]; then
+            project=$(basename $git_project)
+            prompt_segment 98 260 " ${project} "
+        else
+            prompt_segment 98 260 " ??? "
+        fi
     fi
 }
 
 # Reduce git branch names to 4 characters per / separated segment, unless it
 # matches our internal JIRA issue numbering, in that case preserve it completely
 
-JIRA_COMPANY="---"
 JIRA_PROJECT="SAS-"
 
 shorten_git() {
@@ -69,7 +73,7 @@ shorten_git() {
 open_jira() {
     branch="$vcs_info_msg_0_"
     issue=$(echo $branch | awk  'BEGIN{RS="/";}/^${JIRA_PROJECT}/{print $1 }')
-    open "https://${JIRA_COMPANY}.atlassian.net/browse/$issue"
+    open "https://affectv.atlassian.net/browse/$issue"
 }
 
 # Helper to open the github page of the project. I alias this to og
@@ -82,18 +86,21 @@ open_github() {
 # Git prompt, essentially the same from agnoster
 
 prompt_git() {
-    local color ref
+    local color ref status ret
     is_dirty() {
-        test -n "$(git status --porcelain --ignore-submodules)"
+        if [[ -n "$(git rev-parse --show-toplevel)" ]]; then
+            ret="$(git status --porcelain --ignore-submodules)"
+        else
+            ret="aaa"
+        fi
+        test -n "$ret"
     }
     ref="$vcs_info_msg_0_"
     if [[ -n "$ref" ]]; then
         if is_dirty; then
             color=yellow
-            ref="${ref} $PLUSMINUS"
         else
             color=green
-            ref="${ref} "
         fi
         if [[ "${ref/.../}" == "$ref" ]]; then
             shortref=$(shorten_git $ref)
