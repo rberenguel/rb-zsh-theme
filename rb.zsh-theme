@@ -54,7 +54,8 @@ prompt_context() {
 # Reduce git branch names to 4 characters per / separated segment, unless it
 # matches our internal JIRA issue numbering, in that case preserve it completely
 
-JIRA_PROJECT="SAS-"
+JIRA_PROJECT="---"
+JIRA_COMPANY="---"
 
 shorten_git() {
     branch_ref=$1
@@ -73,7 +74,7 @@ shorten_git() {
 open_jira() {
     branch="$vcs_info_msg_0_"
     issue=$(echo $branch | awk  'BEGIN{RS="/";}/^${JIRA_PROJECT}/{print $1 }')
-    open "https://affectv.atlassian.net/browse/$issue"
+    open "https://${JIRA_COMPANY}.atlassian.net/browse/$issue"
 }
 
 # Helper to open the github page of the project. I alias this to og
