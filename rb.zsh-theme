@@ -73,7 +73,7 @@ shorten_git() {
 
 open_jira() {
     branch="$vcs_info_msg_0_"
-    issue=$(echo $branch | awk  'BEGIN{RS="/";}/^${JIRA_PROJECT}/{print $1 }')
+    issue=$(echo $branch | awk  'BEGIN{RS="/";}/^'${JIRA_PROJECT}'/{print $1 }')
     open "https://${JIRA_COMPANY}.atlassian.net/browse/$issue"
 }
 
